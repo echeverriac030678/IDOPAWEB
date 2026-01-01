@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InstagramIcon, TikTokIcon, WhatsAppIcon } from './Icons';
 
 export const Footer: React.FC = () => {
+  const [logoError, setLogoError] = useState(false);
+
   return (
     <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
           <div className="flex items-center gap-2 mb-4">
-             <div className="bg-brand-orange text-white font-bold text-lg px-2 py-1 rounded">IDO</div>
-             <span className="text-white font-bold">Inversiones y Desarrollo Original</span>
+             {!logoError ? (
+               <img 
+                  src="/ido-logo.png" 
+                  alt="IDO Logo" 
+                  className="h-12 w-auto bg-white rounded px-2 py-1 object-contain"
+                  onError={() => setLogoError(true)}
+               />
+             ) : (
+               <div className="flex items-center gap-2">
+                  <div className="bg-brand-orange text-white font-bold text-lg px-2 py-1 rounded">IDO</div>
+                  <span className="text-white font-bold">Inversiones y Desarrollo Original</span>
+               </div>
+             )}
           </div>
           <p className="text-sm leading-relaxed">
             Especialistas en soluciones industriales y agrícolas. Calidad técnica para el profesional moderno.

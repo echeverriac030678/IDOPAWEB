@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { INVENTORY } from '../constants';
 import { ProductCard } from '../components/ProductCard';
@@ -6,6 +6,7 @@ import { ChevronRightIcon, TruckIcon, ShieldCheckIcon, CheckCircleIcon } from '.
 
 export const Home: React.FC = () => {
   const { setView, setCategory } = useStore();
+  const [heroError, setHeroError] = useState(false);
 
   const handleCategoryClick = (cat: any) => {
     setCategory(cat);
@@ -20,11 +21,8 @@ export const Home: React.FC = () => {
       <section className="relative bg-slate-900 text-white overflow-hidden min-h-[600px] flex items-center">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/ido-hero.png" 
-            onError={(e) => {
-                // Fallback visual in case the file isn't present locally
-                e.currentTarget.src = "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=2070&auto=format&fit=crop";
-            }}
+            src={heroError ? "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=2070&auto=format&fit=crop" : "/ido-hero.png"}
+            onError={() => setHeroError(true)}
             alt="IDO Hero Banner" 
             className="w-full h-full object-cover opacity-90"
           />

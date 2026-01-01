@@ -5,6 +5,7 @@ import { MenuIcon, ShoppingCartIcon, XIcon } from './Icons';
 export const Header: React.FC = () => {
   const { cartItemCount, setView, currentView } = useStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [logoError, setLogoError] = useState(false);
 
   const navItemClass = (active: boolean) => 
     `text-sm font-medium transition-colors hover:text-brand-orange cursor-pointer ${active ? 'text-brand-orange' : 'text-slate-300'}`;
@@ -20,8 +21,19 @@ export const Header: React.FC = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleNav('HOME')}>
-            <div className="bg-brand-orange text-white font-bold text-xl px-2 py-1 rounded">IDO</div>
-            <span className="hidden md:block font-bold text-white tracking-tight">Inversiones y Desarrollo Original</span>
+            {!logoError ? (
+              <img 
+                src="/ido-logo.png" 
+                alt="IDO - Inversiones y Desarrollo Original" 
+                className="h-12 w-auto object-contain bg-white rounded px-2 py-1"
+                onError={() => setLogoError(true)}
+              />
+            ) : (
+              <div className="flex items-center gap-2">
+                <div className="bg-brand-orange text-white font-bold text-xl px-2 py-1 rounded">IDO</div>
+                <span className="hidden md:block font-bold text-white tracking-tight">Inversiones y Desarrollo Original</span>
+              </div>
+            )}
           </div>
 
           {/* Desktop Nav */}
